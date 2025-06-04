@@ -1,35 +1,599 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <title>ร้านค้าออนไลน์</title>
-  <style>
-    body { font-family: Arial; background: #fefefe; }
-    header, nav, footer { background: #f8a5c2; padding: 15px; text-align: center; }
-    a { margin: 0 10px; color: white; text-decoration: none; font-weight: bold; }
-    .container { padding: 20px; max-width: 800px; margin: auto; }
-    .product { background: #fff; border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 10px; box-shadow: 0 0 10px #eee; }
-    .btn { background: #f78fb3; padding: 10px; color: white; border: none; border-radius: 5px; text-decoration: none; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CK - ร้านค้าออนไลน์</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            background-color: #debfda;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-container input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .search-container button {
+            background-color: #f96cf2;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-container button:hover {
+            background-color: #efd4e3;
+        }
+
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .banner {
+            background-color: #ffcc00;
+            padding: 20px;
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            border-radius: 8px;
+        }
+
+        h2 {
+            margin-top: 40px;
+            color: #333;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            transition: transform 0.2s;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+
+        .product-card img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        section {
+            padding: 20px;
+            margin-top: 40px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px 0;
+            background-color: #e7bdd8;
+            color: white;
+            margin-top: 40px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        input, textarea {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+        }
+
+        button {
+            background-color: #e29ccd;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #ca95a7;
+        }
+
+        .promotion {
+            background-color: #ffeb3b;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .cart-icon {
+            width: 30px;
+            height: 30px;
+            margin-left: 15px;
+            cursor: pointer;
+        }
+
+        .cart-container {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 10px;
+            position: relative;
+        }
+
+        .cart-content {
+            display: none;
+            position: absolute;
+            right: 20px;
+            top: 60px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            padding: 15px; /* Updated padding */
+            z-index: 10;
+            max-width: 300px; /* Adjusted width */
+            font-size: 16px; /* Font size */
+        }
+
+        .cart-content h3 {
+            margin: 0 0 10px;
+            color: black; /* Color of the header */
+            font-size: 20px; /* Font size of the header */
+        }
+
+        .cart-content p {
+            margin: 0;
+            color: black; /* Color of the cart text */
+        }
+
+        .checkout-button {
+            background-color: #b16d85;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 10px;
+            display: block;
+            width: 100%;
+        }
+
+        .checkout-button:hover {
+            background-color: #ed91ca;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>ร้านค้าออนไลน์</h1>
-    <nav>
-      <a href="/">หน้าแรก</a>
-      <a href="/register">สมัครสมาชิก</a>
-      <a href="/login">เข้าสู่ระบบ</a>
-    </nav>
-  </header>
-  <div class="container">
-    {% for product in products %}
-    <div class="product">
-      <h2>{{ product.name }}</h2>
-      <p>ราคา: {{ product.price }} บาท</p>
-      <a class="btn" href="/add_to_cart/{{ product.id }}">เพิ่มในตะกร้า</a>
+
+    <!-- ส่วนของเมนู -->
+    <header>
+        <div class="logo">CK</div>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="ค้นหาสินค้า...">
+            <button onclick="searchProduct()">ค้นหา</button>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home">หน้าแรก</a></li>
+                <li><a href="#contact">ติดต่อ</a></li>
+                <li><a href="#products">สินค้าแนะนำ</a></li>
+            </ul>
+        </nav>
+        <div class="cart-container">
+            <img src="ooes.jpg" alt="ตะกร้าสินค้า" class="cart-icon" onclick="toggleCart()">
+            <div class="cart-content" id="cartContent">
+                <h3>ตะกร้าสินค้า</h3>
+                <div id="cartItems">ยังไม่มีสินค้าในตะกร้า</div>
+                <button class="checkout-button" onclick="checkout()">ชำระเงิน</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- หน้าแรก -->
+    <main id="home">
+        <h1>ยินดีต้อนรับสู่ CK!</h1>
+        <div class="banner">โปรโมชั่นพิเศษ!</div>
+
+        <!-- ส่วนโปรโมชั่นพิเศษ -->
+        <div class="promotion">
+            สินค้าโปรโมชั่นพิเศษ ลดราคา 20% สำหรับสมาชิก!
+        </div>
+
+        <h2>สินค้าขายดี</h2>
+        <!-- สินค้าขายดี -->
+<div class="product-grid" id="bestSellingProducts">
+    <div class="product-card">
+        <img src="01.jpg" alt="กระเป๋าหนังแฟชั่น">
+        <h3>กระเป๋าหนังแฟชั่น</h3>
+        <p>ราคา: 450 บาท</p>
+        <button onclick="buyProduct('กระเป๋าหนังแฟชั่น', 450)">ซื้อเลย</button>
     </div>
-    {% endfor %}
-  </div>
-  <footer>&copy; ร้านค้า CK</footer>
+    <div class="product-card">
+        <img src="02.jpg" alt="รองเท้าหนังแท้">
+        <h3>รองเท้าหนังแท้</h3>
+        <p>ราคา: 850 บาท</p>
+        <button onclick="buyProduct('รองเท้าหนังแท้', 850)">ซื้อเลย</button>
+    </div>
+    <div class="product-card">
+        <img src="03.jpg" alt="แว่นตากันแดด">
+        <h3>แว่นตากันแดด</h3>
+        <p>ราคา: 350 บาท</p>
+        <button onclick="buyProduct('แว่นตากันแดด', 350)">ซื้อเลย</button>
+    </div>
+    <div class="product-card">
+        <img src="04.jpg" alt="นาฬิกาข้อมือ">
+        <h3>นาฬิกาข้อมือ</h3>
+        <p>ราคา: 1,250 บาท</p>
+        <button onclick="buyProduct('นาฬิกาข้อมือ', 1250)">ซื้อเลย</button>
+    </div>
+    <div class="product-card">
+        <img src="005.jpg" alt="หูฟังบลูทูธ">
+        <h3>หูฟังบลูทูธ</h3>
+        <p>ราคา: 1,100 บาท</p>
+        <button onclick="buyProduct('หูฟังบลูทูธ', 1100)">ซื้อเลย</button>
+    </div>
+    <div class="product-card">
+        <img src="006.jpg" alt="แก้วเก็บอุณหภูมิ">
+        <h3>แก้วเก็บอุณหภูมิ</h3>
+        <p>ราคา: 150 บาท</p>
+        <button onclick="buyProduct('แก้วเก็บอุณหภูมิ', 150)">ซื้อเลย</button>
+    </div>
+    <div class="product-card">
+        <img src="007.jpg" alt="หมวกปีกกว้าง">
+        <h3>หมวกปีกกว้าง</h3>
+        <p>ราคา: 220 บาท</p>
+        <button onclick="buyProduct('หมวกปีกกว้าง', 220)">ซื้อเลย</button>
+    </div>
+    <div class="product-card">
+        <img src="008.jpg" alt="ชุดว่ายน้ำ">
+        <h3>ชุดว่ายน้ำ</h3>
+        <p>ราคา: 400 บาท</p>
+        <button onclick="buyProduct('ชุดว่ายน้ำ', 400)">ซื้อเลย</button>
+    </div>
+    <div class="product-card">
+        <img src="009.jpg" alt="กระเป๋าคาดอก">
+        <h3>กระเป๋าคาดอก</h3>
+        <p>ราคา: 300 บาท</p>
+        <button onclick="buyProduct('กระเป๋าคาดอก', 300)">ซื้อเลย</button>
+    </div>
+    <div class="product-card">
+        <img src="010.jpg" alt="เสื้อกันหนาว">
+        <h3>เสื้อกันหนาว</h3>
+        <p>ราคา: 700 บาท</p>
+        <button onclick="buyProduct('เสื้อกันหนาว', 700)">ซื้อเลย</button>
+    </div>
+    <!-- เพิ่มอีก 10 สินค้าเพื่อให้ครบ 20 -->
+    <div class="product-card">
+        <img src="011.jpg" alt="กางเกงยีนส์">
+        <h3>กางเกงยีนส์</h3>
+        <p>ราคา: 500 บาท</p>
+        <button onclick="buyProduct('กางเกงยีนส์', 500)">ซื้อเลย</button>
+    </div>
+    <div class="product-card">
+        <img src="012.jpg" alt="เข็มขัดหนัง">
+        <h3>เข็มขัดหนัง</h3>
+        <p>ราคา: 150 บาท</p>
+        <button onclick="buyProduct('เข็มขัดหนัง', 150)">ซื้อเลย</button>
+    </div>
+    <div class="product-card">
+        <img src="013.jpg" alt="รองเท้ากีฬา">
+        <h3>รองเท้ากีฬา</h3>
+        <p>ราคา: 600 บาท</p>
+        <button onclick="buyProduct('รองเท้ากีฬา', 600)">ซื้อเลย</button>
+    </div>
+    <div class="product-card">
+        <img src="014.jpg" alt="กระเป๋าสตางค์">
+        <h3>กระเป๋าสตางค์</h3>
+        <p>ราคา: 250 บาท</p>
+        <button onclick="buyProduct('กระเป๋าสตางค์', 250)">ซื้อเลย</button>
+    </div>
+    <div class="product-card">
+        <img src="015.jpg" alt="เครื่องชาร์จพกพา">
+        <h3>เครื่องชาร์จพกพา</h3>
+        <p>ราคา: 300 บาท</p>
+        <button onclick="buyProduct('เครื่องชาร์จพกพา', 300)">ซื้อเลย</button>
+    </div>
+    <div class="product-card">
+        <img src="016.jpg" alt="เสื้อเชิ้ต">
+        <h3>เสื้อเชิ้ต</h3>
+        <p>ราคา: 320 บาท</p>
+        <button onclick="buyProduct('เสื้อเชิ้ต', 320)">ซื้อเลย</button>
+    </div>
+    <div class="product-card">
+        <img src="017.jpg" alt="เสื้อยืด">
+        <h3>เสื้อยืด</h3>
+        <p>ราคา: 200 บาท</p>
+        <button onclick="buyProduct('เสื้อยืด', 200)">ซื้อเลย</button>
+    </div>
+    <div class="product-card">
+        <img src="018.jpg" alt="กระบอกน้ำ">
+        <h3>กระบอกน้ำ</h3>
+        <p>ราคา: 180 บาท</p>
+        <button onclick="buyProduct('กระบอกน้ำ', 180)">ซื้อเลย</button>
+    </div>
+    <div class="product-card">
+        <img src="019.jpg" alt="หมอนรองคอ">
+        <h3>หมอนรองคอ</h3>
+        <p>ราคา: 100 บาท</p>
+        <button onclick="buyProduct('หมอนรองคอ', 100)">ซื้อเลย</button>
+    </div>
+    <div class="product-card">
+        <img src="020.jpg" alt="ผ้าห่ม">
+        <h3>ผ้าห่ม</h3>
+        <p>ราคา: 400 บาท</p>
+        <button onclick="buyProduct('ผ้าห่ม', 400)">ซื้อเลย</button>
+    </div>
+</div>
+
+        <!-- ส่วนสินค้าแนะนำ -->
+<section id="products">
+    <h2>สินค้าแนะนำ</h2>
+    <div class="product-grid" id="recommendedProducts">
+        <div class="product-card">
+            <img src="101.jpg" alt="น้ำหอมดอกไม้">
+            <h3>น้ำหอมดอกไม้</h3>
+            <p>ราคา: 650 บาท</p>
+            <button onclick="buyProduct('น้ำหอมดอกไม้', 650)">ซื้อเลย</button>
+        </div>
+        <div class="product-card">
+            <img src="102.jpg" alt="กระเป๋าถือสตรี">
+            <h3>กระเป๋าถือสตรี</h3>
+            <p>ราคา: 800 บาท</p>
+            <button onclick="buyProduct('กระเป๋าถือสตรี', 800)">ซื้อเลย</button>
+        </div>
+        <div class="product-card">
+            <img src="103.jpg" alt="เครื่องชาร์จเร็ว">
+            <h3>เครื่องชาร์จเร็ว</h3>
+            <p>ราคา: 300 บาท</p>
+            <button onclick="buyProduct('เครื่องชาร์จเร็ว', 300)">ซื้อเลย</button>
+        </div>
+        <div class="product-card">
+            <img src="104.jpg" alt="ลำโพงบลูทูธ">
+            <h3>ลำโพงบลูทูธ</h3>
+            <p>ราคา: 550 บาท</p>
+            <button onclick="buyProduct('ลำโพงบลูทูธ', 550)">ซื้อเลย</button>
+        </div>
+        <div class="product-card">
+            <img src="105.jpg" alt="นาฬิกาดิจิตอล">
+            <h3>นาฬิกาดิจิตอล</h3>
+            <p>ราคา: 1,200 บาท</p>
+            <button onclick="buyProduct('นาฬิกาดิจิตอล', 1200)">ซื้อเลย</button>
+        </div>
+        <div class="product-card">
+            <img src="106.jpg" alt="หม้อทอดไร้น้ำมัน">
+            <h3>หม้อทอดไร้น้ำมัน</h3>
+            <p>ราคา: 1,500 บาท</p>
+            <button onclick="buyProduct('หม้อทอดไร้น้ำมัน', 1500)">ซื้อเลย</button>
+        </div>
+        <div class="product-card">
+            <img src="107.jpg" alt="แปรงสีฟันไฟฟ้า">
+            <h3>แปรงสีฟันไฟฟ้า</h3>
+            <p>ราคา: 450 บาท</p>
+            <button onclick="buyProduct('แปรงสีฟันไฟฟ้า', 450)">ซื้อเลย</button>
+        </div>
+        <div class="product-card">
+            <img src="108.jpg" alt="เครื่องดูดฝุ่นอัตโนมัติ">
+            <h3>เครื่องดูดฝุ่นอัตโนมัติ</h3>
+            <p>ราคา: 2,000 บาท</p>
+            <button onclick="buyProduct('เครื่องดูดฝุ่นอัตโนมัติ', 2000)">ซื้อเลย</button>
+        </div>
+        <div class="product-card">
+            <img src="109.jpg" alt="ขวดน้ำรักษาอุณหภูมิ">
+            <h3>ขวดน้ำรักษาอุณหภูมิ</h3>
+            <p>ราคา: 200 บาท</p>
+            <button onclick="buyProduct('ขวดน้ำรักษาอุณหภูมิ', 200)">ซื้อเลย</button>
+        </div>
+        <div class="product-card">
+            <img src="110.jpg" alt="กล้องถ่ายรูปฟิล์ม">
+            <h3>กล้องถ่ายรูปฟิล์ม</h3>
+            <p>ราคา: 1,800 บาท</p>
+            <button onclick="buyProduct('กล้องถ่ายรูปฟิล์ม', 1800)">ซื้อเลย</button>
+        </div>
+        <div class="product-card">
+            <img src="111.jpg" alt="เสื้อโค้ทหนาว">
+            <h3>เสื้อโค้ทหนาว</h3>
+            <p>ราคา: 950 บาท</p>
+            <button onclick="buyProduct('เสื้อโค้ทหนาว', 950)">ซื้อเลย</button>
+        </div>
+        <div class="product-card">
+            <img src="112.jpg" alt="รองเท้าวิ่ง">
+            <h3>รองเท้าวิ่ง</h3>
+            <p>ราคา: 850 บาท</p>
+            <button onclick="buyProduct('รองเท้าวิ่ง', 850)">ซื้อเลย</button>
+        </div>
+        <div class="product-card">
+            <img src="113.jpg" alt="ชุดนอนผ้าไหม">
+            <h3>ชุดนอนผ้าไหม</h3>
+            <p>ราคา: 650 บาท</p>
+            <button onclick="buyProduct('ชุดนอนผ้าไหม', 650)">ซื้อเลย</button>
+        </div>
+        <div class="product-card">
+            <img src="114.jpg" alt="เตาย่างไฟฟ้า">
+            <h3>เตาย่างไฟฟ้า</h3>
+            <p>ราคา: 1,300 บาท</p>
+            <button onclick="buyProduct('เตาย่างไฟฟ้า', 1300)">ซื้อเลย</button>
+        </div>
+        <div class="product-card">
+            <img src="115.jpg" alt="เครื่องปั่นน้ำผลไม้">
+            <h3>เครื่องปั่นน้ำผลไม้</h3>
+            <p>ราคา: 950 บาท</p>
+            <button onclick="buyProduct('เครื่องปั่นน้ำผลไม้', 950)">ซื้อเลย</button>
+        </div>
+        <div class="product-card">
+            <img src="116.jpg" alt="แว่นตากันน้ำ">
+            <h3>แว่นตากันน้ำ</h3>
+            <p>ราคา: 300 บาท</p>
+            <button onclick="buyProduct('แว่นตากันน้ำ', 300)">ซื้อเลย</button>
+        </div>
+        <div class="product-card">
+            <img src="117.jpg" alt="ชุดอุปกรณ์ทำเล็บ">
+            <h3>ชุดอุปกรณ์ทำเล็บ</h3>
+            <p>ราคา: 400 บาท</p>
+            <button onclick="buyProduct('ชุดอุปกรณ์ทำเล็บ', 400)">ซื้อเลย</button>
+        </div>
+        <div class="product-card">
+            <img src="118.jpg" alt="แปรงแต่งหน้า">
+            <h3>แปรงแต่งหน้า</h3>
+            <p>ราคา: 250 บาท</p>
+            <button onclick="buyProduct('แปรงแต่งหน้า', 250)">ซื้อเลย</button>
+        </div>
+        <div class="product-card">
+            <img src="119.jpg" alt="ถุงมือออกกำลังกาย">
+            <h3>ถุงมือออกกำลังกาย</h3>
+            <p>ราคา: 120 บาท</p>
+            <button onclick="buyProduct('ถุงมือออกกำลังกาย', 120)">ซื้อเลย</button>
+        </div>
+        <div class="product-card">
+            <img src="120.jpg" alt="กล้องติดรถยนต์">
+            <h3>กล้องติดรถยนต์</h3>
+            <p>ราคา: 1,500 บาท</p>
+            <button onclick="buyProduct('กล้องติดรถยนต์', 1500)">ซื้อเลย</button>
+        </div>
+    </div>
+</section>
+
+        </section>
+    </main>
+
+    <!-- หน้าเกี่ยวกับการติดต่อ -->
+    <section id="contact">
+        <h2>ติดต่อเรา</h2>
+        <p>โทรศัพท์: 012-345-6789</p>
+        <p>อีเมล: info@ck.com</p>
+        <form onsubmit="sendMessage(event)">
+            <input type="text" placeholder="ชื่อของคุณ" required>
+            <input type="email" placeholder="อีเมลของคุณ" required>
+            <textarea placeholder="ข้อความของคุณ" required></textarea>
+            <button type="submit">ส่งข้อความ</button>
+        </form>
+    </section>
+
+    <!-- ฟุตเตอร์ -->
+    <footer>
+        <p>&copy; 2024 CK. สงวนลิขสิทธิ์.</p>
+    </footer>
+
+    <script>
+        let cart = [];
+
+        function toggleCart() {
+            const cartContent = document.getElementById("cartContent");
+            cartContent.style.display = cartContent.style.display === "block" ? "none" : "block";
+            updateCart();
+        }
+
+        function buyProduct(name, price) {
+            const product = { name, price };
+            cart.push(product);
+            updateCart();
+            alert(name + " ถูกเพิ่มลงในตะกร้า!");
+        }
+
+        function updateCart() {
+            const cartItems = document.getElementById("cartItems");
+            cartItems.innerHTML = "";
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = "ยังไม่มีสินค้าในตะกร้า";
+                return;
+            }
+
+            cart.forEach((item) => {
+                const itemElement = document.createElement("p");
+                itemElement.textContent = `${item.name} - ราคา: ${item.price} บาท`;
+                cartItems.appendChild(itemElement);
+            });
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert("กรุณาเพิ่มสินค้าในตะกร้าก่อนชำระเงิน");
+                return;
+            }
+            let totalAmount = cart.reduce((total, item) => total + item.price, 0);
+            alert("ยอดรวมในการชำระเงิน: " + totalAmount + " บาท");
+            cart = []; // เคลียร์ตะกร้าหลังการชำระเงิน
+            updateCart();
+            toggleCart();
+        }
+
+        function searchProduct() {
+            const searchInput = document.getElementById("searchInput").value.toLowerCase();
+            const allProducts = [...document.querySelectorAll('.product-card')];
+            allProducts.forEach(product => {
+                const productName = product.querySelector('h3').textContent.toLowerCase();
+                product.style.display = productName.includes(searchInput) ? 'block' : 'none';
+            });
+        }
+
+        function sendMessage(event) {
+            event.preventDefault(); // ป้องกันการรีเฟรชหน้า
+            alert("ข้อความของคุณถูกส่งแล้ว");
+        }
+    </script>
 </body>
 </html>
