@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ร้านค้าออนไลน์</title>
+  <style>
+    body { font-family: Arial; background: #fefefe; }
+    header, nav, footer { background: #f8a5c2; padding: 15px; text-align: center; }
+    a { margin: 0 10px; color: white; text-decoration: none; font-weight: bold; }
+    .container { padding: 20px; max-width: 800px; margin: auto; }
+    .product { background: #fff; border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 10px; box-shadow: 0 0 10px #eee; }
+    .btn { background: #f78fb3; padding: 10px; color: white; border: none; border-radius: 5px; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>ร้านค้าออนไลน์</h1>
+    <nav>
+      <a href="/">หน้าแรก</a>
+      <a href="/register">สมัครสมาชิก</a>
+      <a href="/login">เข้าสู่ระบบ</a>
+    </nav>
+  </header>
+  <div class="container">
+    {% for product in products %}
+    <div class="product">
+      <h2>{{ product.name }}</h2>
+      <p>ราคา: {{ product.price }} บาท</p>
+      <a class="btn" href="/add_to_cart/{{ product.id }}">เพิ่มในตะกร้า</a>
+    </div>
+    {% endfor %}
+  </div>
+  <footer>&copy; ร้านค้า CK</footer>
+</body>
+</html>
